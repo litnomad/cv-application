@@ -1,22 +1,42 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import "../styles/App.css";
 
+/* demo CV */
+const background = [
+  {
+    id: 0,
+    name: "Name",
+    email: "your email address",
+    phone: "your phone number",
+  },
+];
+
+const education = [
+  {
+    id: 1,
+    schoolName: "school",
+    studyTitle: "study title",
+    studyDate: "study date",
+  },
+];
+
+const work = [
+  {
+    id: 2,
+    company: "company name",
+    title: "company title",
+    responsibilities: "responsibilities",
+    startDate: "start date",
+    endDate: "end date",
+  },
+];
+
 function App() {
-  // general section
+  // background section
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [isSubmitted, setisSubmitted] = useState(false);
-
-  // toggle section off
-  function change() {
-    setisSubmitted(false);
-  }
-
-  // toggle section on
-  function onConfirm() {
-    setisSubmitted(true);
-  }
+  const [submittedBackground, setSubmittedBackground] = useState(false);
 
   function nameChange(e) {
     setName(e.target.value);
@@ -30,10 +50,15 @@ function App() {
     setPhone(e.target.value);
   }
 
+  function toggleBackground() {
+    setSubmittedBackground(!submittedBackground);
+  }
+
   // education section
   const [school, setSchool] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
+  const [submittedEducation, setSubmittedEducation] = useState(false);
 
   function schoolChange(e) {
     setSchool(e.target.value);
@@ -47,12 +72,17 @@ function App() {
     setDate(e.target.value);
   }
 
+  function toggleEducation() {
+    setSubmittedEducation(!submittedEducation);
+  }
+
   // work section
   const [company, setCompany] = useState("");
   const [companyTitle, setCompanyTitle] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [submittedWork, setSubmittedWork] = useState(false);
 
   function companyChange(e) {
     setCompany(e.target.value);
@@ -74,179 +104,190 @@ function App() {
     setEndDate(e.target.value);
   }
 
-  // display submitted application
-  // can not be inside the body of onConfirm
-  if (isSubmitted) {
-    return (
-      <>
-        <div>
-          <h1>General</h1>
-          <h2>Name</h2>
-          <p>{name}</p>
-          <h2>Email</h2>
-          <p>{email}</p>
-          <h2>Phone</h2>
-          <p>{phone}</p>
-          <button onClick={change}>Edit</button>
-          <button onClick={onConfirm}>Submit</button>
-        </div>
-
-        <div>
-          <h1>Education</h1>
-          <h2>School</h2>
-          <p>{school}</p>
-          <h2>Title</h2>
-          <p>{title}</p>
-          <h2>Date</h2>
-          <p>{date}</p>
-          <button onClick={change}>Edit</button>
-          <button onClick={onConfirm}>Submit</button>
-        </div>
-
-        <div>
-          <h1>Work</h1>
-          <h2>Company</h2>
-          <p>{company}</p>
-          <h2>Company Title</h2>
-          <p>{companyTitle}</p>
-          <h2>Responsibilities</h2>
-          <p>{responsibilities}</p>
-          <h2>Start Date</h2>
-          <p>{startDate}</p>
-          <h2>End Date</h2>
-          <p>{endDate}</p>
-          <button onClick={change}>Edit</button>
-          <button onClick={onConfirm}>Submit</button>
-        </div>
-      </>
-    );
+  function toggleWork() {
+    setSubmittedWork(!submittedWork);
   }
 
-  // fix: change editName, editEmail, and editPhone props to nameChange, emailChange, and phoneChange so that the prop names match
   return (
     <>
-      <h1>General</h1>
-      <General
-        name={name}
-        email={email}
-        phone={phone}
-        nameChange={nameChange}
-        emailChange={emailChange}
-        phoneChange={phoneChange}
-        status={isSubmitted}
-        change={change}
-        submit={onConfirm}
-      />
+      <div className="form">
+        <Background
+          name={name}
+          email={email}
+          phone={phone}
+          nameChange={nameChange}
+          emailChange={emailChange}
+          phoneChange={phoneChange}
+          submittedBackground={submittedBackground}
+          toggleBackground={toggleBackground}
+        />
 
-      <h1>Education</h1>
-      <Education
-        school={school}
-        title={title}
-        date={date}
-        schoolChange={schoolChange}
-        titleChange={titleChange}
-        dateChange={dateChange}
-        status={isSubmitted}
-        change={change}
-        submit={onConfirm}
-      />
+        <Education
+          school={school}
+          title={title}
+          date={date}
+          schoolChange={schoolChange}
+          titleChange={titleChange}
+          dateChange={dateChange}
+          submittedEducation={submittedEducation}
+          toggleEducation={toggleEducation}
+        />
 
-      <h1>Work</h1>
-      <Work
-        company={company}
-        companyTitle={companyTitle}
-        responsibilities={responsibilities}
-        companyChange={companyChange}
-        responsibilitiesChange={responsibilitiesChange}
-        companyTitleChange={companyTitleChange}
-        startDate={startDate}
-        endDate={endDate}
-        changeStart={changeStart}
-        changeEnd={changeEnd}
-        status={isSubmitted}
-        change={change}
-        submit={onConfirm}
-      />
+        <Work
+          company={company}
+          companyTitle={companyTitle}
+          responsibilities={responsibilities}
+          startDate={startDate}
+          endDate={endDate}
+          companyChange={companyChange}
+          companyTitleChange={companyTitleChange}
+          responsibilitiesChange={responsibilitiesChange}
+          changeStart={changeStart}
+          changeEnd={changeEnd}
+          submittedWork={submittedWork}
+          toggleWork={toggleWork}
+        />
+      </div>
+      <div className="preview">
+        <h1>CV Preview</h1>
+        {background.map((info) => (
+          <Fragment key={info.id}>
+            <h2>{submittedBackground ? name : info.name}</h2>
+            <hr></hr>
+            <ul className="contact">
+              <li>{submittedBackground ? email : info.email}</li>
+              <li>{submittedBackground ? phone : info.phone}</li>
+            </ul>
+          </Fragment>
+        ))}
+
+        <h2>Education</h2>
+        <hr></hr>
+        {education.map((info) => (
+          <ul key={info.id}>
+            <li>{submittedEducation ? school : info.schoolName}</li>
+            <li>{submittedEducation ? title : info.studyTitle}</li>
+            <li>{submittedEducation ? date : info.studyDate}</li>
+          </ul>
+        ))}
+
+        <h2>Experience</h2>
+        <hr></hr>
+        {work.map((info) => (
+          <ul key={info.id}>
+            <li>{submittedWork ? company : info.company}</li>
+            <li>{submittedWork ? companyTitle : info.title}</li>
+            <li>{submittedWork ? responsibilities : info.responsibilities}</li>
+            <li>{submittedWork ? startDate : info.startDate}</li>
+            <li>{submittedWork ? endDate : info.endDate}</li>
+          </ul>
+        ))}
+      </div>
     </>
   );
 }
 
-// general component
-function General({
-  isSubmitted,
+// background component
+function Background({
+  submittedBackground,
   name,
   email,
   phone,
   nameChange,
   emailChange,
   phoneChange,
-  change,
-  submit,
+  toggleBackground,
 }) {
+  if (!submittedBackground) {
+    return (
+      <>
+        <fieldset>
+          <legend>Background</legend>
+          <label>
+            Name:{" "}
+            <input id="name" type="text" value={name} onChange={nameChange} />
+          </label>
+          <label>
+            Email:{" "}
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={emailChange}
+            />
+          </label>
+          <label>
+            Phone:{" "}
+            <input id="phone" type="tel" value={phone} onChange={phoneChange} />
+          </label>
+        </fieldset>
+        <button onClick={toggleBackground}>Submit</button>
+      </>
+    );
+  }
   return (
     <>
-      <fieldset attribute={isSubmitted ? "disabled" : ""}>
-        <label>
-          Name:{" "}
-          <input id="name" type="text" value={name} onChange={nameChange} />
-        </label>
-        <label>
-          Email:{" "}
-          <input id="email" type="email" value={email} onChange={emailChange} />
-        </label>
-        <label>
-          Phone:{" "}
-          <input id="phone" type="tel" value={phone} onChange={phoneChange} />
-        </label>
-      </fieldset>
-      <button onClick={change}>Edit</button>
-      <button onClick={submit}>Submit</button>
+      <legend>Background</legend>
+      <button onClick={toggleBackground}>Edit</button>
     </>
   );
 }
 
 // education section
 function Education({
-  isSubmitted,
+  submittedEducation,
   school,
   title,
   date,
   schoolChange,
   titleChange,
   dateChange,
-  change,
-  submit,
+  toggleEducation,
 }) {
+  if (!submittedEducation) {
+    return (
+      <>
+        <fieldset attribute={submittedEducation ? "disabled" : ""}>
+          <legend>Education</legend>
+          <label>
+            School name:{" "}
+            <input
+              id="school"
+              type="text"
+              value={school}
+              onChange={schoolChange}
+            />
+          </label>
+          <label>
+            Title of study:{" "}
+            <input
+              id="title"
+              type="text"
+              value={title}
+              onChange={titleChange}
+            />
+          </label>
+          <label>
+            Date of study:{" "}
+            <input id="date" type="date" value={date} onChange={dateChange} />
+          </label>
+        </fieldset>
+
+        <button onClick={toggleEducation}>Submit</button>
+      </>
+    );
+  }
   return (
     <>
-      <fieldset attribute={isSubmitted ? "disabled" : ""}>
-        <label>
-          School name:{" "}
-          <input
-            id="school"
-            type="text"
-            value={school}
-            onChange={schoolChange}
-          />
-        </label>
-        <label>
-          Title of study:{" "}
-          <input id="title" type="text" value={title} onChange={titleChange} />
-        </label>
-        <label>
-          Date of study:{" "}
-          <input id="date" type="date" value={date} onChange={dateChange} />
-        </label>
-      </fieldset>
-      <button onClick={change}>Edit</button>
-      <button onClick={submit}>Submit</button>
+      <legend>Education</legend>
+      <button onClick={toggleEducation}>Edit</button>
     </>
   );
 }
 
 // work section
 function Work({
-  isSubmitted,
+  submittedWork,
   company,
   companyTitle,
   responsibilities,
@@ -257,62 +298,69 @@ function Work({
   responsibilitiesChange,
   changeStart,
   changeEnd,
-  change,
-  submit,
+  toggleWork,
 }) {
-  return (
-    <>
-      <fieldset attribute={isSubmitted ? "disabled" : ""}>
-        <label>
-          Company Name:{" "}
-          <input
-            id="company"
-            type="text"
-            value={company}
-            onChange={companyChange}
-          />
-        </label>
-        <label>
-          Company Title:{" "}
-          <input
-            id="companyTitle"
-            type="text"
-            value={companyTitle}
-            onChange={companyTitleChange}
-          />
-        </label>
-        <label>
-          Main responsibilities:{" "}
+  if (!submittedWork) {
+    return (
+      <>
+        <fieldset attribute={submittedWork ? "disabled" : ""}>
+          <legend>Work</legend>
+          <label>
+            Company Name:{" "}
+            <input
+              id="company"
+              type="text"
+              value={company}
+              onChange={companyChange}
+            />
+          </label>
+          <label>
+            Title:{" "}
+            <input
+              id="companyTitle"
+              type="text"
+              value={companyTitle}
+              onChange={companyTitleChange}
+            />
+          </label>
+          <label for="responsibilities">Main responsibilities: </label>
           <textarea
             id="responsibilities"
             type="text"
-            rows="10"
-            cols="50"
+            rows="5"
+            cols="20"
             value={responsibilities}
             onChange={responsibilitiesChange}
           />
-        </label>
-        <label>
-          Start Date:
-          <input
-            id="workDate"
-            type="date"
-            value={startDate}
-            onChange={changeStart}
-          />
-        </label>
-        <label>
-          End Date:{" "}
-          <input
-            id="workDate"
-            type="date"
-            value={endDate}
-            onChange={changeEnd}
-          />
-        </label>
-      </fieldset>
-      <button onClick={change}>Edit</button>
-      <button onClick={submit}>Submit</button>
+
+          <label>
+            Start Date:
+            <input
+              id="startDate"
+              type="date"
+              value={startDate}
+              onChange={changeStart}
+            />
+          </label>
+          <label>
+            End Date:{" "}
+            <input
+              id="endDate"
+              type="date"
+              value={endDate}
+              onChange={changeEnd}
+            />
+          </label>
+        </fieldset>
+
+        <button onClick={toggleWork}>Submit</button>
+      </>
+    );
+  }
+  return (
+    <>
+      <legend>Work</legend>
+      <button onClick={toggleWork}>Edit</button>
     </>
   );
 }
