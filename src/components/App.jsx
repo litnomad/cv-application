@@ -1,11 +1,32 @@
 import { useState } from "react";
 import "../styles/App.css";
 
+/* CV demo */
+const background = {
+  name: "Name",
+  email: "your email address",
+  phone: "your phone number",
+};
+
+const education = {
+  school: "school",
+  title: "study title",
+  date: "study date",
+};
+
+const work = {
+  company: "company name",
+  companyTitle: "company title",
+  responsibilities: "responsibilities",
+  startDate: "start date",
+  endDate: "end date",
+};
+
 function App() {
   // background section
-  const [name, setName] = useState("Your name");
-  const [email, setEmail] = useState("Your email address");
-  const [phone, setPhone] = useState("Your phone number");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [submittedBackground, setSubmittedBackground] = useState(false);
 
   function toggleBackground() {
@@ -116,29 +137,35 @@ function App() {
       <div className="preview">
         <h1>CV Preview</h1>
 
-        <h2>{name}</h2>
+        <h2>{name.length === 0 ? background.name : name}</h2>
         <hr></hr>
         <ul className="contact">
-          <li>{email}</li>
-          <li>{phone}</li>
+          <li>{email.length === 0 ? background.email : email}</li>
+          <li>{phone.length === 0 ? background.phone : phone}</li>
         </ul>
 
         <h2>Education</h2>
         <hr></hr>
         <ul>
-          <li>{school}</li>
-          <li>{title}</li>
-          <li>{date}</li>
+          <li>{school.length === 0 ? education.school : school}</li>
+          <li>{title.length === 0 ? education.title : title}</li>
+          <li>{date.length === 0 ? education.date : date}</li>
         </ul>
 
         <h2>Experience</h2>
         <hr></hr>
         <ul>
-          <li>{company}</li>
-          <li>{companyTitle}</li>
-          <li>{responsibilities}</li>
-          <li>{startDate}</li>
-          <li>{endDate}</li>
+          <li>{company.length === 0 ? work.company : company}</li>
+          <li>
+            {companyTitle.length === 0 ? work.companyTitle : companyTitle}
+          </li>
+          <li>
+            {responsibilities.length === 0
+              ? work.responsibilities
+              : responsibilities}
+          </li>
+          <li>{startDate.length === 0 ? work.startDate : startDate}</li>
+          <li>{endDate.length === 0 ? work.endDate : endDate}</li>
         </ul>
       </div>
     </>
