@@ -1,26 +1,6 @@
 import { useState } from "react";
+import { background, education, work } from "./data";
 import "../styles/App.css";
-
-/* CV demo */
-const background = {
-  name: "Name",
-  email: "your email address",
-  phone: "your phone number",
-};
-
-const education = {
-  school: "school",
-  title: "study title",
-  date: "study date",
-};
-
-const work = {
-  company: "company name",
-  companyTitle: "company title",
-  responsibilities: "responsibilities",
-  startDate: "start date",
-  endDate: "end date",
-};
 
 function App() {
   // background section
