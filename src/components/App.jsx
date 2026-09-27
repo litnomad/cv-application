@@ -115,10 +115,10 @@ function App() {
         />
       </div>
       <div className="preview">
-        <h1>CV Preview</h1>
+        <p>CV Preview</p>
 
-        <h2>{name.length === 0 ? background.name : name}</h2>
-        <hr></hr>
+        <h1>{name.length === 0 ? background.name : name}</h1>
+        <hr className="header"></hr>
         <ul className="contact">
           <li>{email.length === 0 ? background.email : email}</li>
           <li>{phone.length === 0 ? background.phone : phone}</li>
@@ -167,25 +167,17 @@ function Background({
         <form method="post" onSubmit={handleBackgroundSubmit}>
           <fieldset>
             <legend>Background</legend>
-            <label>
-              Name:{" "}
-              <input id="name" type="text" name="name" defaultValue={name} />
-            </label>
-            <label>
-              Email:{" "}
-              <input
-                id="email"
-                type="email"
-                name="email"
-                defaultValue={email}
-              />
-            </label>
-            <label>
-              Phone:{" "}
-              <input id="phone" type="tel" name="phone" defaultValue={phone} />
-            </label>
+            <label htmlFor="name">Name: </label>
+            <input id="name" type="text" name="name" defaultValue={name} />
+
+            <label htmlFor="email">Email: </label>
+            <input id="email" type="email" name="email" defaultValue={email} />
+
+            <label htmlFor="phone">Phone: </label>
+            <input id="phone" type="tel" name="phone" defaultValue={phone} />
+
+            <button type="submit">Submit</button>
           </fieldset>
-          <button type="submit">Submit</button>
         </form>
       </>
     );
@@ -213,25 +205,22 @@ function Education({
         <form method="post" onSubmit={handleEducationSubmit}>
           <fieldset>
             <legend>Education</legend>
-            <label>
-              School name:{" "}
-              <input
-                id="school"
-                type="text"
-                name="school"
-                defaultValue={school}
-              />
-            </label>
-            <label>
-              Title of study:{" "}
-              <input id="title" type="text" name="title" defaultValue={title} />
-            </label>
-            <label>
-              Date of study:{" "}
-              <input id="date" type="date" name="date" defaultValue={date} />
-            </label>
+            <label htmlFor="school">School name: </label>
+            <input
+              id="school"
+              type="text"
+              name="school"
+              defaultValue={school}
+            />
+
+            <label htmlFor="title">Title of study: </label>
+            <input id="title" type="text" name="title" defaultValue={title} />
+
+            <label htmlFor="date">Date of study: </label>
+            <input id="date" type="date" name="date" defaultValue={date} />
+
+            <button type="submit">Submit</button>
           </fieldset>
-          <button type="submit">Submit</button>
         </form>
       </>
     );
@@ -261,24 +250,22 @@ function Work({
         <form method="post" onSubmit={handleWorkSubmit}>
           <fieldset>
             <legend>Work</legend>
-            <label>
-              Company Name:{" "}
-              <input
-                id="company"
-                type="text"
-                name="company"
-                defaultValue={company}
-              />
-            </label>
-            <label>
-              Title:{" "}
-              <input
-                id="companyTitle"
-                type="text"
-                name="companyTitle"
-                defaultValue={companyTitle}
-              />
-            </label>
+            <label htmlFor="company">Company Name: </label>
+            <input
+              id="company"
+              type="text"
+              name="company"
+              defaultValue={company}
+            />
+
+            <label htmlFor="companyTitle">Title: </label>
+            <input
+              id="companyTitle"
+              type="text"
+              name="companyTitle"
+              defaultValue={companyTitle}
+            />
+
             <label htmlFor="responsibilities">Main responsibilities: </label>
             <textarea
               id="responsibilities"
@@ -288,26 +275,24 @@ function Work({
               name="responsibilities"
               defaultValue={responsibilities}
             />
-            <label>
-              Start Date:
-              <input
-                id="startDate"
-                type="date"
-                name="startDate"
-                defaultValue={startDate}
-              />
-            </label>
-            <label>
-              End Date:{" "}
-              <input
-                id="endDate"
-                type="date"
-                name="endDate"
-                defaultValue={endDate}
-              />
-            </label>
+            <label htmlFor="startDate">Start Date:</label>
+            <input
+              id="startDate"
+              type="date"
+              name="startDate"
+              defaultValue={startDate}
+            />
+
+            <label htmlFor="endDate">End Date: </label>
+            <input
+              id="endDate"
+              type="date"
+              name="endDate"
+              defaultValue={endDate}
+            />
+
+            <button type="submit">Submit</button>
           </fieldset>
-          <button type="submit">Submit</button>
         </form>
       </>
     );
